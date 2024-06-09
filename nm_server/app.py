@@ -95,7 +95,7 @@ def add_data_from_json(med_info, user_id, user_name):
             # Insert drug information
             for drug in med['DrugList']:
                 cursor.execute(
-                    "REPLACE INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    "INSERT IGNORE INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                     (med_id, drug['No'], drug['Effect'], drug['Code'], drug['Name'], drug['Component'], drug['Quantity'], drug['DosagePerOnce'], drug['DailyDose'], drug['TotalDosingDays'])
                 )
 
