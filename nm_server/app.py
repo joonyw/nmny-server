@@ -177,19 +177,20 @@ def query_database_to_json(user_id):
 @app.route('/medications/pdf', methods=['GET'])
 def get_medications_pdf():
     rrn = request.args.get('rrn')
+    path = rrn + 'pdf'
     if not rrn:
         return 'Missing RRN', 400
     rrn = decrypt_rrn(rrn)
     data = query_database_to_json(rrn)
-    generate_pdf_from_json(data,rrn + '.pdf')
+    generate_pdf_from_json(data,path)
     @after_this_request
     def remove_file(response):
         try:
-            os.remove(rrn+ '.pdf')
+            os.remove(path)
         except Exception as error:
             app.logger.error("Error removing or closing downloaded file handle", error)
         return response
-    return send_file('../'+rrn+'.pdf', as_attachment=True)
+    return send_file('../'+path, as_attachment=True)
 
 # def decrypt_rrn(encrypted_rrn):
 #     key = b'1joonwooseunghonaegamuckneunyak1'  # 32 bytes key
