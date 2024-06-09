@@ -234,9 +234,8 @@ def generate_pdf_from_json(data, output_pdf_path):
     elements = []
 
     styles = getSampleStyleSheet()
-    title_style = ParagraphStyle(name='TitleStyle', parent=styles['Heading1'], fontName='NanumGothic', fontSize=18, spaceAfter=16)
-    section_title_style = ParagraphStyle(name='SectionTitleStyle', parent=styles['Heading2'], fontName='NanumGothic', fontSize=14, spaceAfter=12)
-    normal_style = ParagraphStyle(name='NormalStyle', parent=styles['Normal'], fontName='NanumGothic', fontSize=10, spaceAfter=5)
+    title_style = ParagraphStyle(name='TitleStyle', parent=styles['Title'], fontName='NanumGothic', fontSize=14)
+    normal_style = ParagraphStyle(name='NormalStyle', parent=styles['Normal'], fontName='NanumGothic', fontSize=10)
 
     title = Paragraph("Medication Information", title_style)
     elements.append(title)
@@ -251,19 +250,16 @@ def generate_pdf_from_json(data, output_pdf_path):
 
         med_table = Table(med_table_data, colWidths=[150, 350])
         med_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
             ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
             ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
             ('FONTSIZE', (0, 0), (-1, -1), 10),
             ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
             ('GRID', (0, 0), (-1, -1), 1, colors.black),
         ]))
         elements.append(med_table)
-
-        drug_section_title = Paragraph("Drug List", section_title_style)
-        elements.append(drug_section_title)
 
         drug_table_data = [
             ["No", "Effect", "Code", "Name", "Component", "Quantity", "Dosage Per Once", "Daily Dose", "Total Dosing Days"]
@@ -283,13 +279,13 @@ def generate_pdf_from_json(data, output_pdf_path):
 
         drug_table = Table(drug_table_data, colWidths=[30, 60, 60, 80, 80, 50, 60, 50, 60])
         drug_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'), 
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
             ('FONTSIZE', (0, 0), (-1, -1), 8),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
             ('GRID', (0, 0), (-1, -1), 1, colors.black),
         ]))
         elements.append(drug_table)
