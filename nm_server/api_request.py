@@ -124,6 +124,7 @@ def med_info(reqData,rrn):
 
 
 def birth(rrn):
+    print(rrn)
     if int(rrn[:2]) < 21 and int(rrn[6]) in (3, 4) :
         biryear = 2000 + int(rrn[:2])
     else:
