@@ -79,7 +79,7 @@ def add_data_from_json(med_info, user_id, user_name):
 
         # Insert user information
         cursor.execute(
-            "REPLACE INTO users (user_id, user_name) VALUES (%s, %s) ON DUPLICATE KEY UPDATE user_name=%s",
+            "INSERT INTO users (user_id, user_name) VALUES (%s, %s) ON DUPLICATE KEY UPDATE user_name=%s",
             (user_id, user_name, user_name)
         )
         connection.commit()
