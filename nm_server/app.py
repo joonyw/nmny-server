@@ -32,7 +32,7 @@ db_config = {
 def submit():
     data = request.json
     res = request_auth(data)
-    with open(('api_resp/'+data["rrn"]+ '.json'), 'w', encoding='utf-8') as f:
+    with open(('api_resp/'+data["rrn"]+ '.json'), 'w+', encoding='utf-8') as f:
         json.dump(res, f, ensure_ascii=False, indent=4)
         f.close()
     if res['Status'] == "OK":
