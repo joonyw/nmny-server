@@ -330,7 +330,7 @@ def add_medication():
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
-                    '-',
+                    preparation_id,
                     '-',
                     '-',
                     '-',
