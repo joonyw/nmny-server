@@ -239,57 +239,57 @@ def generate_pdf_from_json(data, output_pdf_path):
     title = Paragraph("Medication Information", title_style)
     elements.append(title)
 
-    for med in data['ResultList']:
-        med_table_data = [
-            [Paragraph("Medication No", normal_style), Paragraph(med['No'], normal_style)],
-            [Paragraph("Date of Preparation", normal_style), Paragraph(med['DateOfPreparation'], normal_style)],
-            [Paragraph("Dispensary", normal_style), Paragraph(med['Dispensary'], normal_style)],
-            [Paragraph("Phone Number", normal_style), Paragraph(med['PhoneNumber'], normal_style)]
-        ]
+    # for med in data['ResultList']:
+    med_table_data = [
+        [Paragraph("Medication No", normal_style), Paragraph(med['No'], normal_style)],
+        [Paragraph("Date of Preparation", normal_style), Paragraph(med['DateOfPreparation'], normal_style)],
+        [Paragraph("Dispensary", normal_style), Paragraph(med['Dispensary'], normal_style)],
+        [Paragraph("Phone Number", normal_style), Paragraph(med['PhoneNumber'], normal_style)]
+    ]
 
-        med_table = Table(med_table_data, colWidths=[150, 350])
-        med_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ]))
-        elements.append(med_table)
+    med_table = Table(med_table_data, colWidths=[150, 350])
+    med_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ]))
+    elements.append(med_table)
 
-        drug_table_data = [
-            ["No", "Effect", "Code", "Name", "Component", "Quantity", "Dosage Per Once", "Daily Dose", "Total Dosing Days"]
-        ]
-        for drug in med['DrugList']:
-            drug_table_data.append([
-                Paragraph(drug['No'], normal_style),
-                Paragraph(drug['Effect'], normal_style),
-                Paragraph(drug['Code'], normal_style),
-                Paragraph(drug['Name'], normal_style),
-                Paragraph(drug['Component'], normal_style),
-                Paragraph(drug['Quantity'], normal_style),
-                Paragraph(drug['DosagePerOnce'], normal_style),
-                Paragraph(drug['DailyDose'], normal_style),
-                Paragraph(drug['TotalDosingDays'], normal_style)
-            ])
+    drug_table_data = [
+        ["No", "Effect", "Code", "Name", "Component", "Quantity", "Dosage Per Once", "Daily Dose", "Total Dosing Days"]
+    ]
+    for drug in med['DrugList']:
+        drug_table_data.append([
+            Paragraph(drug['No'], normal_style),
+            Paragraph(drug['Effect'], normal_style),
+            Paragraph(drug['Code'], normal_style),
+            Paragraph(drug['Name'], normal_style),
+            Paragraph(drug['Component'], normal_style),
+            Paragraph(drug['Quantity'], normal_style),
+            Paragraph(drug['DosagePerOnce'], normal_style),
+            Paragraph(drug['DailyDose'], normal_style),
+            Paragraph(drug['TotalDosingDays'], normal_style)
+        ])
 
-        drug_table = Table(drug_table_data, colWidths=[30, 60, 60, 80, 80, 50, 60, 50, 60])
-        drug_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
-            ('FONTSIZE', (0, 0), (-1, -1), 8),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ]))
-        elements.append(drug_table)
+    drug_table = Table(drug_table_data, colWidths=[30, 60, 60, 80, 80, 50, 60, 50, 60])
+    drug_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NanumGothic'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ]))
+    elements.append(drug_table)
 
-        elements.append(Paragraph("<br/><br/>", normal_style))
+    elements.append(Paragraph("<br/><br/>", normal_style))
 
     doc.build(elements)
 
