@@ -5,6 +5,8 @@ from app import app, db_config, add_data_from_json, decrypt_rrn, query_database_
 import mysql.connector
 from unittest.mock import patch, MagicMock
 from io import BytesIO
+from api_request import request_auth, med_info, getPublicKey, aesEncrypt, birth
+
 
 class MyTest(TestCase):
     def create_app(self):
@@ -93,6 +95,20 @@ class MyTest(TestCase):
         generate_pdf_from_json(data, output_pdf_path)
         with open(output_pdf_path, 'rb') as f:
             self.assertTrue(f.read())
+    
+    def test_aesEncrypt(self):
+        key = b'1234567890123456'
+        iv = b'1234567890123456'
+        plainText = 'Hello World'
+        encrypted = aesEncrypt(key, iv, plainText)
+        self.assertNotEqual(encrypted, plainText)
+    
+    def test_birth(self):
+        rrn = "9801011234567"
+        birth_date = birth(rrn)
+        self.assertEqual(birth_date, "1998011")
+
+
 
 if __name__ == '__main__':
     unittest.main()
