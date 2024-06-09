@@ -177,7 +177,7 @@ def query_database_to_json(user_id):
 @app.route('/medications/pdf', methods=['GET'])
 def get_medications_pdf():
     rrn = request.args.get('rrn')
-    path = rrn + 'pdf'
+    path = rrn + '.pdf'
     if not rrn:
         return 'Missing RRN', 400
     rrn = decrypt_rrn(rrn)
@@ -299,10 +299,10 @@ def generate_pdf_from_json(data, output_pdf_path):
 def add_medication():
     data = request.get_json()
     rrn = data.get('RRN')
-    preparation_no = data.get('No')
+    preparation_no = '-'
     preparation_date = data.get('DateOfPreparation')
     dispensary = data.get('Dispensary')
-    phone_number = data.get('PhoneNumber')
+    phone_number = '-'
     drug_list = data.get('DrugList', [])
 
     try:
@@ -327,16 +327,16 @@ def add_medication():
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
-                    preparation_id,
-                    drug['No'],
-                    drug['Effect'],
-                    drug['Code'],
+                    '-',
+                    '-',
+                    '-',
+                    '-',
                     drug['Name'],
-                    drug['Component'],
-                    drug['Quantity'],
-                    drug['DosagePerOnce'],
-                    drug['DailyDose'],
-                    drug['TotalDosingDays']
+                    '-',
+                    '-',
+                    '-',
+                    '-',
+                    '-'
                 )
             )
 
