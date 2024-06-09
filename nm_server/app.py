@@ -302,7 +302,7 @@ def add_medication():
     preparation_no = '-'
     preparation_date = data.get('DateOfPreparation')
     if preparation_date == '-' or preparation_date == '':
-        preparation_date = '0000-00-00'
+        preparation_date = '0000/00/00'
     print(preparation_date)
     dispensary = data.get('Dispensary')
     phone_number = '-'
