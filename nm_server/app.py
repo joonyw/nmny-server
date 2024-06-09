@@ -297,9 +297,19 @@ def generate_pdf_from_json(data, output_pdf_path):
 
 @app.route('/add_medication', methods=['POST'])
 def add_medication():
+    from datetime import datetime
+
+    # Getting the current date and time
+    dt = datetime.now()
+
+    # getting the timestamp
+    ts = datetime.timestamp(dt)
+
+    # print("Date and time is:", dt)
+    # print("Timestamp is:", ts)
     data = request.get_json()
     rrn = data.get('RRN')
-    preparation_no = '-'
+    preparation_no = ts
     preparation_date = data.get('DateOfPreparation')
     if preparation_date == '-' or preparation_date == '':
         preparation_date = '1000-01-01'
@@ -317,7 +327,7 @@ def add_medication():
             REPLACE INTO medications (user_id,med_no, date_of_preparation, dispensary, phone_number)
             VALUES (%s, %s, %s, %s, %s)
             """,
-            (rrn, d, preparation_date, dispensary, phone_number)
+            (rrn, preparation_no, preparation_date, dispensary, phone_number)
         )
         preparation_id = cursor.lastrowid
 
