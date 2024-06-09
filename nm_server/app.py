@@ -301,7 +301,7 @@ def add_medication():
     rrn = data.get('RRN')
     preparation_no = '-'
     preparation_date = data.get('DateOfPreparation')
-    if preparation_date == '-':
+    if preparation_date == '-' or preparation_date == '':
         preparation_date = '0000-00-00'
     print(preparation_date)
     dispensary = data.get('Dispensary')
