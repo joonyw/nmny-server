@@ -79,7 +79,7 @@ def add_data_from_json(med_info, user_id, user_name):
 
         # Insert user information
         cursor.execute(
-            "INSERT INTO users (user_id, user_name) VALUES (%s, %s) ON DUPLICATE KEY UPDATE user_name=%s",
+            "REPLACE INTO users (user_id, user_name) VALUES (%s, %s) ON DUPLICATE KEY UPDATE user_name=%s",
             (user_id, user_name, user_name)
         )
         connection.commit()
@@ -87,7 +87,7 @@ def add_data_from_json(med_info, user_id, user_name):
         # Insert medication information
         for med in med_info['ResultList']:
             cursor.execute(
-                "INSERT INTO medications (user_id, med_no, date_of_preparation, dispensary, phone_number) VALUES (%s, %s, %s, %s, %s)",
+                "REPLACE INTO medications (user_id, med_no, date_of_preparation, dispensary, phone_number) VALUES (%s, %s, %s, %s, %s)",
                 (user_id, med['No'], med['DateOfPreparation'], med['Dispensary'], med['PhoneNumber'])
             )
             med_id = cursor.lastrowid
@@ -95,7 +95,7 @@ def add_data_from_json(med_info, user_id, user_name):
             # Insert drug information
             for drug in med['DrugList']:
                 cursor.execute(
-                    "INSERT INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    "REPLACE INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                     (med_id, drug['No'], drug['Effect'], drug['Code'], drug['Name'], drug['Component'], drug['Quantity'], drug['DosagePerOnce'], drug['DailyDose'], drug['TotalDosingDays'])
                 )
 
@@ -311,7 +311,7 @@ def add_medication():
         # Insert the medication preparation data into the database
         cursor.execute(
             """
-            INSERT INTO medications (user_id,med_no, date_of_preparation, dispensary, phone_number)
+            REPLACE INTO medications (user_id,med_no, date_of_preparation, dispensary, phone_number)
             VALUES (%s, %s, %s, %s, %s)
             """,
             (rrn, preparation_no, preparation_date, dispensary, phone_number)
@@ -322,7 +322,7 @@ def add_medication():
         for drug in drug_list:
             cursor.execute(
                 """
-                INSERT INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days)
+                REPLACE INTO drugs (med_id, drug_no, effect, code, name, component, quantity, dosage_per_once, daily_dose, total_dosing_days)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
