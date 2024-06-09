@@ -303,6 +303,7 @@ def add_medication():
     preparation_date = data.get('DateOfPreparation')
     if preparation_date == '-':
         preparation_date = '0000-00-00'
+    print(preparation_date)
     dispensary = data.get('Dispensary')
     phone_number = '-'
     drug_list = data.get('DrugList', [])
