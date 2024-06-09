@@ -303,7 +303,6 @@ def add_medication():
     preparation_date = data.get('DateOfPreparation')
     if preparation_date == '-' or preparation_date == '':
         preparation_date = '1000-01-01'
-    print(preparation_date)
     dispensary = data.get('Dispensary')
     phone_number = '-'
     drug_list = data.get('DrugList', [])
@@ -311,14 +310,14 @@ def add_medication():
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
-
+        d = cursor.lastrowid
         # Insert the medication preparation data into the database
         cursor.execute(
             """
             REPLACE INTO medications (user_id,med_no, date_of_preparation, dispensary, phone_number)
             VALUES (%s, %s, %s, %s, %s)
             """,
-            (rrn, preparation_no, preparation_date, dispensary, phone_number)
+            (rrn, d, preparation_date, dispensary, phone_number)
         )
         preparation_id = cursor.lastrowid
 
