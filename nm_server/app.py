@@ -87,7 +87,7 @@ def add_data_from_json(med_info, user_id, user_name):
         # Insert medication information
         for med in med_info['ResultList']:
             cursor.execute(
-                "INSERT INTO medications (user_id, med_no, date_of_preparation, dispensary, phone_number) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE med_no=%s",
+                "INSERT IGNORE INTO medications (user_id, med_no, date_of_preparation, dispensary, phone_number) VALUES (%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE med_id=%s",
                 (user_id, med['No'], med['DateOfPreparation'], med['Dispensary'], med['PhoneNumber'],med['No'])
             )
             med_id = cursor.lastrowid
